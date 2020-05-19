@@ -45,4 +45,13 @@ Rails.application.configure do
 
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
+
+  # Rack CORS
+  config.cors_origins = 'http://localhost:5000' # '*' it too general
+  config.middleware.insert_before 0, Rack::Cors do
+    allow do
+      origins Rails.application.config.cors_origins
+      resource '*', headers: :any, methods: [:get, :post, :options]
+    end
+  end
 end

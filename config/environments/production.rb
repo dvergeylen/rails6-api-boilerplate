@@ -102,4 +102,13 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+
+  # Rack CORS
+  config.cors_origins = 'https://place2be.io' # '*' it too general
+  config.middleware.insert_before 0, Rack::Cors do
+    allow do
+      origins Rails.application.config.cors_origins
+      resource '*', headers: :any, methods: [:get, :post, :options]
+    end
+  end
 end
