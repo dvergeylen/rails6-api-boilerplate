@@ -27,6 +27,15 @@ group :development, :test do
   gem 'sqlite3', '~> 1.4.2'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
+  # Use RSpec for specs
+  gem 'rspec-rails', '>= 4.0.0'
+
+  # Use Factory Bot for generating random test data
+  gem 'factory_bot_rails', '~> 5.1.1'
+
+  # Use Faker to populate Factories with random data
+  gem 'faker', '~> 2.11.0'
 end
 
 group :development do
