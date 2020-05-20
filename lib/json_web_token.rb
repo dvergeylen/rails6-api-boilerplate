@@ -22,6 +22,8 @@ class JsonWebToken
       header:  JWT::JSON.parse(JWT::Base64.url_decode(segments[0])),
       payload: JWT::JSON.parse(JWT::Base64.url_decode(segments[1]))
     }
+  rescue ::NoMethodError
+    raise JWT::DecodeError, 'No token given'
   rescue ::JSON::ParserError
     raise JWT::DecodeError, 'Invalid token encoding'
   end
