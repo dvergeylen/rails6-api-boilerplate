@@ -1,4 +1,4 @@
-class GamesController < ApplicationController
+class V1::GamesController < ApplicationController
   include Secured
 
   before_action :set_game, only: [:show, :update, :destroy]
@@ -20,7 +20,7 @@ class GamesController < ApplicationController
     @game = Game.new(game_params)
 
     if @game.save
-      render json: GameSerializer.new(@game), status: :created, location: user_game_url(@game.user_id, @game.id)
+      render json: GameSerializer.new(@game), status: :created, location: v1_user_game_url(@game.user_id, @game.id)
     else
       render json: @game.errors, status: :unprocessable_entity
     end

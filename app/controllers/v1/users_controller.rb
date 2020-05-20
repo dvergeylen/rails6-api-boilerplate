@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class V1::UsersController < ApplicationController
   include Secured
 
   before_action :set_user, only: [:show, :update, :destroy]
@@ -20,7 +20,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      render json: UserSerializer.new(@user), status: :created, location: @user
+      render json: UserSerializer.new(@user), status: :created, location: v1_user_url(@user.id)
     else
       render json: @user.errors, status: :unprocessable_entity
     end

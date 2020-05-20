@@ -39,7 +39,7 @@ RSpec.describe "/games", type: :request do
 
   # This should return the minimal set of values that should be in the headers
   # in order to pass any filters (e.g. authentication) defined in
-  # GamesController, or in your router and rack
+  # V1::GamesController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) {
     if @headers.nil?
@@ -70,7 +70,7 @@ RSpec.describe "/games", type: :request do
   describe "GET /index" do
     it "renders a successful response" do
       game = Game.create! valid_attributes
-      get user_games_url(@user.id), headers: valid_headers, as: :json
+      get v1_user_games_url(@user.id), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
@@ -78,7 +78,7 @@ RSpec.describe "/games", type: :request do
   describe "GET /show" do
     it "renders a successful response" do
       game = Game.create! valid_attributes
-      get user_game_url(@user, game), headers: valid_headers, as: :json
+      get v1_user_game_url(@user, game), headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
@@ -87,13 +87,13 @@ RSpec.describe "/games", type: :request do
     context "with valid parameters" do
       it "creates a new Game" do
         expect {
-          post user_games_url(@user.id),
+          post v1_user_games_url(@user.id),
                params: { game: valid_attributes }, headers: valid_headers, as: :json
         }.to change(Game, :count).by(1)
       end
 
       it "renders a JSON response with the new game" do
-        post user_games_url(@user.id),
+        post v1_user_games_url(@user.id),
              params: { game: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including("application/json"))
@@ -103,13 +103,13 @@ RSpec.describe "/games", type: :request do
     context "with invalid parameters" do
       it "does not create a new Game" do
         expect {
-          post user_games_url(@user.id),
+          post v1_user_games_url(@user.id),
                params: { game: invalid_attributes }, as: :json
         }.to change(Game, :count).by(0)
       end
 
       it "renders a JSON response with errors for the new game" do
-        post user_games_url(@user.id),
+        post v1_user_games_url(@user.id),
              params: { game: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq("application/json; charset=utf-8")
@@ -126,7 +126,7 @@ RSpec.describe "/games", type: :request do
       it "updates the requested game" do
         game = Game.create! valid_attributes
         game_new_attributes = new_attributes
-        patch user_game_url(@user.id, game),
+        patch v1_user_game_url(@user.id, game),
               params: { game: game_new_attributes }, headers: valid_headers, as: :json
         game.reload
 
@@ -136,7 +136,7 @@ RSpec.describe "/games", type: :request do
 
       it "renders a JSON response with the game" do
         game = Game.create! valid_attributes
-        patch user_game_url(@user.id, game),
+        patch v1_user_game_url(@user.id, game),
               params: { game: new_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq("application/json; charset=utf-8")
@@ -146,7 +146,7 @@ RSpec.describe "/games", type: :request do
     context "with invalid parameters" do
       it "renders a JSON response with errors for the game" do
         game = Game.create! valid_attributes
-        patch user_game_url(@user.id, game),
+        patch v1_user_game_url(@user.id, game),
               params: { game: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq("application/json; charset=utf-8")
@@ -158,7 +158,7 @@ RSpec.describe "/games", type: :request do
     it "destroys the requested game" do
       game = Game.create! valid_attributes
       expect {
-        delete user_game_url(@user.id, game), headers: valid_headers, as: :json
+        delete v1_user_game_url(@user.id, game), headers: valid_headers, as: :json
       }.to change(Game, :count).by(-1)
     end
   end
