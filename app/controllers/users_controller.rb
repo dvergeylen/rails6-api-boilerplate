@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  include Secured
+
   before_action :set_user, only: [:show, :update, :destroy]
 
   # GET /users

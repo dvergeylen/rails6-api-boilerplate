@@ -1,4 +1,6 @@
 class GamesController < ApplicationController
+  include Secured
+
   before_action :set_game, only: [:show, :update, :destroy]
 
   # GET /games
