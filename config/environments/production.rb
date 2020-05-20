@@ -112,3 +112,5 @@ Rails.application.configure do
     end
   end
 end
+
+Rails.application.default_url_options = { host: 'place2be.io' }

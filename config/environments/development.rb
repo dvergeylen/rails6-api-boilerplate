@@ -59,3 +59,5 @@ Rails.application.configure do
     end
   end
 end
+
+Rails.application.default_url_options = { host: 'localhost:3000' }
